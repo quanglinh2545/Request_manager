@@ -103,4 +103,7 @@ class RequestPolicy
     {
         return $user->inRole('user');
     }
+    public function manage(User $user){
+        return $user->inRole('manager');
+    }
 }

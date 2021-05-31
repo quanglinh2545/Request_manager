@@ -8,12 +8,12 @@
             <h2>{{ \Illuminate\Support\Str::limit($rq->title,6) }}</h2>
             <p>{{  \Illuminate\Support\Str::limit($rq->description, 100) }}</p>
             <p>
-                <a class="btn btn-success" href="{{ route('edit_request', ['rq' => $rq]) }}" role="button">Chỉnh sửa</a>
+                <a class="btn btn-success" href="{{ route('edit_request', ['rq' => $rq]) }}" role="button">Chi tiết</a>
                @can('request.accept')
                     <a class="btn btn-success" href="{{ route('accept_request', ['rq' => $rq]) }}" role="button">accept</a>
                 @endcan
                  @can('request.delete')
-                    <a class="btn btn-success" href="{{ route('delete_request',  ['rq' => $rq]) }}" role="button">Delete</a>
+                    <a class="btn btn-danger" href="{{ route('delete_request',  ['rq' => $rq]) }}" role="button">Delete</a>
                 @endcan
             </p>
         </div>

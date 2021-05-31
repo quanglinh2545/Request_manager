@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::resource('request', RequestPolicy::class);
         Gate::define('request.draft', RequestPolicy::class . '@draft');
         Gate::define('request.accept', RequestPolicy::class . '@accept');
-
+        Gate::define('request.manage', RequestPolicy::class . '@manage');
         //
     }
 }

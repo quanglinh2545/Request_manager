@@ -66,7 +66,8 @@ class RequestController extends Controller
     public function show($id)
     {
         $rq = RequestModel::findOrFail($id);
-        return view('requests.show', compact('rq'));
+        $user = User::where('id',$rq->user_id)->first();
+        return view('requests.show', compact('rq','user'));
     }
     public function comment()
     {
@@ -103,5 +104,13 @@ class RequestController extends Controller
       RequestModel::destroy($rq ->id);
 
       return redirect('/requests/drafts');
+    }
+    public function manage($id){
+
+        $rq = RequestModel::find($id);
+        $rq->status = $id;
+        $rq->save();
+
+        return redirect('/requests');
     }
 }

@@ -56,4 +56,7 @@ Route::group(['prefix' => 'requests'], function () {
     Route::get('/accept/{rq}', 'App\Http\Controllers\RequestController@accept')
         ->name('accept_request')
         ->middleware('can:request.accept');
+        Route::get('/manage/{id}', 'App\Http\Controllers\RequestController@manage')
+        ->name('manage_request')
+        ->middleware('can:request.manage');
 });

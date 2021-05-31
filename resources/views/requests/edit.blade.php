@@ -82,7 +82,7 @@
                                 </a>
                                 @endcan
                                 <a href="{{ route('list_drafts') }}" class="btn btn-default">
-                                    Hủy bỏ
+                                    Quay lại
                                 </a>
                             </div>
                         </div>
