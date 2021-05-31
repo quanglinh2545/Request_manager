@@ -12,6 +12,9 @@
                @can('request.accept')
                     <a class="btn btn-success" href="{{ route('accept_request', ['rq' => $rq]) }}" role="button">accept</a>
                 @endcan
+                 @can('request.delete')
+                    <a class="btn btn-success" href="{{ route('delete_request',  ['rq' => $rq]) }}" role="button">Delete</a>
+                @endcan
             </p>
         </div>
         @endforeach

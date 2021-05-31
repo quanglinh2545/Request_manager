@@ -42,7 +42,7 @@ class RequestPolicy
     public function create(User $user)
     {
         //
-        return $user->hasAccess(['request.create']);
+        return $user->inRole('user');
     }
 
     /**
@@ -66,12 +66,11 @@ class RequestPolicy
      * @param  \App\Models\Request  $request
      * @return mixed
      */
-    public function delete(User $user, RequestModel $request)
+    public function delete(User $user)
     {
         //
         return $user->hasAccess(['request.delete']);
     }
-
     /**
      * Determine whether the user can restore the model.
      *

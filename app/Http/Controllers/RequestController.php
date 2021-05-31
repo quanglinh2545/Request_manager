@@ -45,7 +45,14 @@ class RequestController extends Controller
     }
     public function edit(RequestModel $rq)
     {
-        return view('requests.edit', compact('rq'));
+        $user_id = Auth::user()->id;
+        $department_id = User::where('id',$user_id)->first()->department_id;
+        $ms = User::where('department_id',$department_id)->get();
+        $managers[] = new User();
+        foreach($ms as $m){
+            if($m->inRole('manager')) $managers[] = $m;
+        }
+        return view('requests.edit', compact('rq','managers'));
     }
     public function update(RequestModel $rq, Request $request)
     {
@@ -67,20 +74,33 @@ class RequestController extends Controller
     }
     public function drafts()
     {
+        //$user = new User();
         $rqsQuery = RequestModel::all();
-        if (Gate::denies('request.draft')) {
-            $rqspostsQuery = $rqsQuery->where('user_id', Auth::user()->id);
-        }
         $rqs = $rqsQuery;
+        $id = Auth::user()->id;
+        $user = User::where('id',$id)->first();
+        if($user->inRole('user')){
+            $rqs = $rqsQuery->where('user_id', Auth::user()->id);
+        }
+        if($user->inRole('manager')){
+            $rqs = $rqsQuery->where('manager',$user->name);
+        }
+        // $rqsQuery = RequestModel::all();
+        // if (Gate::allows('request.draft')) {
+        //     $rqsQuery = $rqsQuery->where('user_id', Auth::user()->id);
+        // }
+        // $rqs = $rqsQuery;
+
+        //$rqsQuery = RequestModel::all()->where('user_id', Auth::user()->id);
         return view('requests.drafts', compact('rqs'));
     }
     public function accept()
     {
         //
     }
-    public function destroy($id)
+    public function destroy(RequestModel $rq)
     {
-      RequestModel::destroy($id);
+      RequestModel::destroy($rq ->id);
 
       return redirect('/requests/drafts');
     }

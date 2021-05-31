@@ -41,6 +41,9 @@ Route::group(['prefix' => 'requests'], function () {
     Route::post('/create', 'App\Http\Controllers\RequestController@store')
         ->name('store_request')
         ->middleware('can:request.create');
+        Route::get('/delete/{rq}', 'App\Http\Controllers\RequestController@destroy')
+        ->name('delete_request')
+        ->middleware('can:request.delete,rq');
 
     Route::get('/edit/{rq}', 'App\Http\Controllers\RequestController@edit')
         ->name('edit_request')

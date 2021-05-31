@@ -38,6 +38,7 @@ class RolesSeeder extends Seeder
               'request.create' =>true,
               'request.update' => true,
               'request.comment' =>true,
+              'request.delete'=>true,
               
             ]
         ]);
