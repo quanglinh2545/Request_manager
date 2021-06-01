@@ -68,6 +68,12 @@
                                     New request
                                 </a>
                                 @endcan
+                                <a class="dropdown-item" href="{{ route('create_user') }}">
+                                    New user
+                                </a>
+                                 <a class="dropdown-item" href="{{ route('list_users') }}">
+                                   List User
+                                </a>
                                 
 
 

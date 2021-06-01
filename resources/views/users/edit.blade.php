@@ -5,17 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Edit User') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('update_user',$user->id) }}">
                         @csrf
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name}}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email}}" required autocomplete="email">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -63,27 +63,50 @@
                         {{--department --}}
                         <div class="form-group row">
                             <label for="department_id" class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
-                        
+
                             <div class="col-md-6">
-                                <select class="col-md-3 control-label form-control" name="department_id" id="department_id" required>
+                                <select class="col-md-5 control-label form-control" name="department_id" id="department_id" required>
+
                                     @foreach($dpms as $dpm)
-                                    <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
+                                    <option value="{{ $dpm->id }}" {{ ((old('department_id') ?? $user->department_id ?? 0) == $dpm->id) ? 'selected' : '' }}>{{ $dpm->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         {{-- --}}
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                        {{--role --}}
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="col-md-5 control-label form-control" name="role" id="role" required>
+                                    @foreach($roles as $role)
+                                    <option value="{{ $role->id }}" {{ ((old('role') ?? $r ?? 0) == $r) ? 'selected' : '' }}>{{ $role->slug }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                        {{-- --}}
+                        <div class="col-md-8">
+                            &emsp;
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group row mb-4">
+                                <div class="col-md-10 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Register') }}
+                                    </button>
+                                    <a href="#" class="btn btn-secondary"> Back</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>
 @endsection

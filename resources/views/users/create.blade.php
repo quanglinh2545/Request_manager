@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Create user') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('store_user') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -63,9 +63,9 @@
                         {{--department --}}
                         <div class="form-group row">
                             <label for="department_id" class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
-                        
+
                             <div class="col-md-6">
-                                <select class="col-md-3 control-label form-control" name="department_id" id="department_id" required>
+                                <select class="col-md-5 control-label form-control" name="department_id" id="department_id" required>
                                     @foreach($dpms as $dpm)
                                     <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
                                     @endforeach
@@ -73,17 +73,41 @@
                             </div>
                         </div>
                         {{-- --}}
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                        {{--role --}}
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="col-md-5 control-label form-control" name="role" id="role" required>
+                                    @foreach($roles as $role)
+                                    @if($role->slug != "admin") 
+                                    <option value="{{ $role->id }}">{{ $role->slug }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                        {{-- --}}
+                        <div class="col-md-8">
+                            &emsp;
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group row mb-4">
+                                <div class="col-md-10 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Register') }}
+                                    </button>
+                                    <a href="#" class="btn btn-secondary"> Back</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>
 @endsection

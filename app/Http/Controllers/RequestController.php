@@ -20,7 +20,7 @@ class RequestController extends Controller
         $user_id = Auth::user()->id;
         $department_id = User::where('id',$user_id)->first()->department_id;
         $ms = User::where('department_id',$department_id)->get();
-        $managers[] = new User();
+        //$managers[] = new User();
         foreach($ms as $m){
             if($m->inRole('manager')) $managers[] = $m;
         }

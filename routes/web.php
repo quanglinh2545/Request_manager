@@ -26,6 +26,25 @@ Auth::routes();
 
 Route::get('/', 'App\Http\Controllers\RequestController@index');
 Route::get('/requests', 'App\Http\Controllers\RequestController@index')->name('list_requests');
+
+// user control
+Route::get('/create_user', 'App\Http\Controllers\UserController@create')
+->name('create_user')
+->middleware('auth');
+Route::post('/store_user', 'App\Http\Controllers\UserController@store')
+->name('store_user')
+->middleware('auth');
+Route::get('/list_users', 'App\Http\Controllers\UserController@index')
+->name('list_users')
+->middleware('auth');
+Route::get('/edit_user/{id}', 'App\Http\Controllers\UserController@edit')
+->name('edit_user')
+->middleware('auth');
+Route::post('/edit_user/{id}', 'App\Http\Controllers\UserController@update')
+->name('update_user')
+->middleware('auth');
+
+// request control
 Route::group(['prefix' => 'requests'], function () {
     Route::get('/drafts', 'App\Http\Controllers\RequestController@drafts')
         ->name('list_drafts')
@@ -59,4 +78,11 @@ Route::group(['prefix' => 'requests'], function () {
         Route::get('/manage/{id}', 'App\Http\Controllers\RequestController@manage')
         ->name('manage_request')
         ->middleware('can:request.manage');
+
+        Route::get('/manage/{id}', 'App\Http\Controllers\RequestController@manage')
+        ->name('manage_request')
+        ->middleware('can:request.manage');
+
+        
+
 });

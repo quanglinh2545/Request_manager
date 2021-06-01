@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,17 +30,17 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -64,10 +65,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $admin = Role::where('slug', 'admin')->first();
+        $manager = Role::where('slug', 'manager')->first();
+        $user = Role::where('slug', 'user')->first();
+
+        $acc=User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'department_id' =>$data['department_id'],
             'password' => Hash::make($data['password']),
         ]);
+        if($data['role'] == 1)
+        $acc->roles()->attach($admin);
+        if($data['role'] == 2)
+        $acc->roles()->attach($manager);
+        if($data['role'] == 3)
+        $acc->roles()->attach($user);
+        return redirect('/requests/drafts');
     }
 }
