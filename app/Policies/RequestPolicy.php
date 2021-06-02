@@ -56,7 +56,7 @@ class RequestPolicy
     {
         //
        // return $user->hasAccess(['request.update']) or $user->id == $rq->user_id;
-       return $user->hasAccess(['request.update']) or $user->id == $rq->user_id;
+       return $user->hasAccess(['request.admin']) or $user->id == $rq->user_id;
     }
 
     /**
@@ -106,4 +106,14 @@ class RequestPolicy
     public function manage(User $user){
         return $user->inRole('manager');
     }
+    public function admin(User $user){
+        return $user->inRole('admin');
+    }
+    public function user(User $user){
+        return $user->inRole('user');
+    }
+    public function manager(User $user){
+        return $user->inRole('manager');
+    }
+
 }

@@ -76,7 +76,7 @@
                                 <button type="submit" class="btn btn-success">
                                     Tạo request
                                 </button>
-                                <a href="{{ route('list_requests') }}" class="btn btn-success">
+                                <a href="{{ route('list_drafts') }}" class="btn btn-secondary">
                                     Hủy bỏ
                                 </a>
                             </div>

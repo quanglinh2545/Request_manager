@@ -31,6 +31,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('request.draft', RequestPolicy::class . '@draft');
         Gate::define('request.accept', RequestPolicy::class . '@accept');
         Gate::define('request.manage', RequestPolicy::class . '@manage');
+        Gate::define('request.user', RequestPolicy::class . '@user');
+        Gate::define('request.manager', RequestPolicy::class . '@manager');
+        Gate::define('request.admin', RequestPolicy::class . '@admin');
+
         //
     }
 }

@@ -24,17 +24,14 @@ class RequestController extends Controller
         foreach($ms as $m){
             if($m->inRole('manager')) $managers[] = $m;
         }
-       // $managers = User::where('id',$id)->get();
         return view('requests.create',compact('managers'));
     }
     public function store(Request $request)
     {
-        //$data = $request->only('title', 'description');
         $data['title'] = $request->title;
         $data['description'] = $request->description;
-        // $str_slug = \Illuminate\Support\Str::slug($data['title']);
         $data['user_id'] = Auth::user()->id;
-        $data['status'] = 0;
+        $data['status'] = "In progress";
         $data['priority'] = 0;
         $data['category_id'] = $request->category_id;
         $data['manager'] = $request->manager;
@@ -48,7 +45,7 @@ class RequestController extends Controller
         $user_id = Auth::user()->id;
         $department_id = User::where('id',$user_id)->first()->department_id;
         $ms = User::where('department_id',$department_id)->get();
-        $managers[] = new User();
+        //$managers[] = new User();
         foreach($ms as $m){
             if($m->inRole('manager')) $managers[] = $m;
         }
@@ -56,11 +53,14 @@ class RequestController extends Controller
     }
     public function update(RequestModel $rq, Request $request)
     {
-        $data = $request->only('title', 'description');
-        //$str_slug = \Illuminate\Support\Str::slug($data['title']);
-        //$data['slug'] = $str_slug;
-        //$post = Post::published()->findOrFail($id);
-        $rq->fill($data)->save();
+        $data = RequestModel::findOrFail($rq->id);
+        $data['title'] = $request->title;
+        $data['description'] = $request->description;
+        $data['category_id'] = $request->category_id;
+        $data['manager'] = $request->manager;
+        $data['start_date'] = $request->start_date;
+        $data['due_date'] = $request->due_date;
+        $data->save();
         return redirect('/requests/drafts');
     }
     public function show($id)
@@ -77,22 +77,19 @@ class RequestController extends Controller
     {
         //$user = new User();
         $rqsQuery = RequestModel::all();
+        
         $rqs = $rqsQuery;
         $id = Auth::user()->id;
         $user = User::where('id',$id)->first();
+        if($user->inRole('admin')){
+            $rqs = $rqsQuery->where('status','<>','Close');
+        }
         if($user->inRole('user')){
             $rqs = $rqsQuery->where('user_id', Auth::user()->id);
         }
         if($user->inRole('manager')){
             $rqs = $rqsQuery->where('manager',$user->name);
         }
-        // $rqsQuery = RequestModel::all();
-        // if (Gate::allows('request.draft')) {
-        //     $rqsQuery = $rqsQuery->where('user_id', Auth::user()->id);
-        // }
-        // $rqs = $rqsQuery;
-
-        //$rqsQuery = RequestModel::all()->where('user_id', Auth::user()->id);
         return view('requests.drafts', compact('rqs'));
     }
     public function accept()
@@ -112,5 +109,21 @@ class RequestController extends Controller
         $rq->save();
 
         return redirect('/requests');
+    }
+    public function approve($id){
+
+        $rq = RequestModel::find($id);
+        $rq->status = "Open";
+        $rq->save();
+
+        return redirect('/requests/drafts');
+    }
+    public function reject($id){
+
+        $rq = RequestModel::find($id);
+        $rq->status = "Close";
+        $rq->save();
+
+        return redirect('/requests/drafts');
     }
 }

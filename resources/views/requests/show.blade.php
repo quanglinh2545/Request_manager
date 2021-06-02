@@ -60,8 +60,14 @@
                     </div>
                 </div>
             </div>
-            <a href = "{{ route('manage_request', $rq->id) }} "class="btn btn-success"> Approve </a>
-            <a href="#" class="btn btn-default"> Reject</a>
+            @can('request.manager')
+            <a href = "{{ route('approve_request', $rq->id) }} "class="btn btn-success"> Approve </a>
+            <a href="{{ route('reject_request', $rq->id) }}" class="btn btn-danger"> Reject</a>
+            @endcan
+            @can('request.admin')
+            
+            @endcan
+             <a class="btn btn-secondary" href="{{ route('list_drafts') }}" role="button">Back</a>
         </div>
 
     </div>

@@ -17,5 +17,14 @@ class DepartmentsSeeder extends Seeder
         $department1 = Department::create([
             'name' => 'HB1'
         ]);
+        $department2 = Department::create([
+            'name' => 'HB2'
+        ]);
+        $department3 = Department::create([
+            'name' => 'HB3'
+        ]);
+        $department4 = Department::create([
+            'name' => 'HB4'
+        ]);
     }
 }

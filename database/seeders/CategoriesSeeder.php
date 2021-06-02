@@ -18,5 +18,13 @@ class CategoriesSeeder extends Seeder
             'name' => 'trang thai 1',
             'status' => 1
         ]);
+        $category2 = Category::create([
+            'name' => 'trang thai 2',
+            'status' => 2
+        ]);
+        $category3 = Category::create([
+            'name' => 'trang thai 3',
+            'status' => 3
+        ]);
     }
 }

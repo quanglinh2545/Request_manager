@@ -29,19 +29,33 @@ class UsersSeeder extends Seeder
 
         $user2 = User::create([
             'name' => 'manager1', 
-            'email' => 'manager@gmail.com',
+            'email' => 'manager1@gmail.com',
             'password' => bcrypt('123123'),
             'department_id' => 1
         ]);
         $user2->roles()->attach($manager);
+        
+        $user4 = User::create([
+            'name' => 'manager2', 
+            'email' => 'manager2@gmail.com',
+            'password' => bcrypt('123123'),
+            'department_id' => 2
+        ]);
+        $user4->roles()->attach($manager);
 
         $user3 = User::create([
             'name' => 'user1', 
-            'email' => 'user@gmail.com',
+            'email' => 'user1@gmail.com',
+            'password' => bcrypt('123123'),
+            'department_id' => 2
+        ]);
+        $user3->roles()->attach($user);
+        $user5 = User::create([
+            'name' => 'user2', 
+            'email' => 'user2@gmail.com',
             'password' => bcrypt('123123'),
             'department_id' => 1
         ]);
-        $user3->roles()->attach($user);
-        
+        $user5->roles()->attach($user);
     }
 }

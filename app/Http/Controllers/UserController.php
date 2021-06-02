@@ -109,7 +109,8 @@ class UserController extends Controller
         $roles = Role::where('slug','<>',"admin")->get();
         $dpms = Department::all();
         $user = User::findOrFail($id);
-        $r = DB::select("SELECT role_id from role_users where user_id = $user->id");
+        $r_id = DB::table('role_users')->where('user_id',$id)->pluck('role_id');
+        $r = Role::where('id',$r_id)->first();
         return view('users.edit',compact('user','roles','dpms','r'));
     }
 
@@ -125,33 +126,25 @@ class UserController extends Controller
         //
         $validatedData = $rq->validate([
             'name' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
             'department_id' => ['required'],
         ]);
         //
         $admin = Role::where('slug', 'admin')->first();
         $manager = Role::where('slug', 'manager')->first();
         $user = Role::where('slug', 'user')->first();
-        
+
         $acc = User::find($id);
-        // $acc = User::create([
-        //     'name' => $rq['name'],
-        //     'email' => $rq['email'],
-        //     'department_id' => $rq['department_id'],
-        //     'password' => Hash::make($rq['password']),
-        // ]);
             $acc['name'] = $rq->name;
-            $acc['email'] = $rq->email;
             $acc['password'] =Hash::make($rq['password']);
             $acc['department_id'] = $rq->department_id;
-
         if ($rq['role'] == 1)
             $acc->roles()->attach($admin);
         if ($rq['role'] == 2)
             $acc->roles()->attach($manager);
         if ($rq['role'] == 3)
             $acc->roles()->attach($user);
+            $acc->save();
+            return view('list_users');
     }
 
     /**

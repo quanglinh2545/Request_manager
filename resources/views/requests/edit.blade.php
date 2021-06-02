@@ -9,6 +9,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('update_request', ['rq' => $rq]) }}">
                         {{ csrf_field() }}
+                        
                         {{-- title --}}
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                             <label for="title" class="col-md-3 control-label">Tiêu đề</label>
@@ -63,7 +64,7 @@
                             </div>
                         </div>
                         {{-- --}}
-                         {{-- due dâte --}}
+                        {{-- due dâte --}}
                         <div class="form-group">
                             <label for="due_date" class="col-md-3 control-label">Due date</label>
                             <div class="col-md-9">
@@ -71,6 +72,13 @@
                             </div>
                         </div>
                         {{-- --}}
+                        
+
+
+                        {{-- edit for admin --}}
+                        
+                       
+                        {{--  --}}
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-3">
                                 <button type="submit" class="btn btn-success">

@@ -18,14 +18,15 @@ class RolesSeeder extends Seeder
             'name' => 'cán bộ HCNS', 
             'slug' => 'admin',
             'permissions' => [
-                'request.create' => true,
+                'request.admin' => true,
+                'request.comment' =>true,
             ]
         ]);
         $manager = Role::create([
             'name' => 'quản lý bộ phận', 
             'slug' => 'manager',
             'permissions' => [
-                'request.update' => true,
+                'request.manager' => true,
                 'request.comment' =>true,
                 'request.accept' =>true,
            
@@ -35,6 +36,7 @@ class RolesSeeder extends Seeder
             'name' => 'người dùng', 
             'slug' => 'user',
             'permissions' => [
+                'request.user' =>true,
               'request.create' =>true,
               'request.update' => true,
               'request.comment' =>true,

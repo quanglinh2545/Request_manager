@@ -17,7 +17,7 @@ class CreateRequestModelsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('title');
             $table->text('description');
-            $table->integer('status')->unsigned();
+            $table->string('status');
             $table->integer('priority');
             $table->unsignedInteger('category_id');
             $table->integer('user_id')->unsigned();

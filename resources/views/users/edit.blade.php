@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -37,9 +37,9 @@
                                 </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -59,7 +59,7 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
-                        </div>
+                        </div> --}}
                         {{--department --}}
                         <div class="form-group row">
                             <label for="department_id" class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
@@ -68,7 +68,7 @@
                                 <select class="col-md-5 control-label form-control" name="department_id" id="department_id" required>
 
                                     @foreach($dpms as $dpm)
-                                    <option value="{{ $dpm->id }}" {{ ((old('department_id') ?? $user->department_id ?? 0) == $dpm->id) ? 'selected' : '' }}>{{ $dpm->name }}</option>
+                                    <option value="{{ $dpm->id }}" {{ ( $user->department_id == $dpm->id) ? 'selected' : '' }}>{{ $dpm->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -80,8 +80,9 @@
 
                             <div class="col-md-6">
                                 <select class="col-md-5 control-label form-control" name="role" id="role" required>
+                                  
                                     @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" {{ ((old('role') ?? $r ?? 0) == $r) ? 'selected' : '' }}>{{ $role->slug }}</option>
+                                    <option value="{{ $role->id }}" {{ ( $r->id  == $role->id) ? 'selected' : '' }}>{{ $role->slug }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -96,7 +97,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Register') }}
                                     </button>
-                                    <a href="#" class="btn btn-secondary"> Back</a>
+                                    <a href=" {{route ('list_users')}}" class="btn btn-secondary"> Back</a>
                                 </div>
                             </div>
                         </div>
