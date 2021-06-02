@@ -44,6 +44,12 @@ Route::post('/edit_user/{id}', 'App\Http\Controllers\UserController@update')
 ->name('update_user')
 ->middleware('auth');
 
+
+
+
+
+
+
 // request control
 Route::group(['prefix' => 'requests'], function () {
     Route::get('/drafts', 'App\Http\Controllers\RequestController@drafts')
@@ -87,7 +93,10 @@ Route::group(['prefix' => 'requests'], function () {
         Route::get('/reject/{id}', 'App\Http\Controllers\RequestController@reject')
         ->name('reject_request')
         ->middleware('can:request.manage');
-
-        
-
+        Route::get('/edit_priority/{id}', 'App\Http\Controllers\RequestController@editPriority')
+        ->name('edit_priority')
+        ->middleware('auth');
+        Route::post('/edit_user/{id}', 'App\Http\Controllers\RequestController@updatePriority')
+        ->name('update_priority')
+        ->middleware('auth');
 });

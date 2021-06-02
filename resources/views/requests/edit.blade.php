@@ -71,13 +71,9 @@
                                 <input id="due_date" type="datetime-local" class="col-md-5 control-label form-control" name="due_date" value="{{ date('Y-m-d\TH:i', strtotime($rq->due_date)) }}" required autofocus>
                             </div>
                         </div>
-                        {{-- --}}
-                        
-
-
+                        {{-- --}}                      
                         {{-- edit for admin --}}
                         
-                       
                         {{--  --}}
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-3">

@@ -16,7 +16,7 @@
                     <a class="btn btn-danger" href="{{ route('delete_request',  ['rq' => $rq]) }}" role="button">Delete</a>
                 @endcan
                 @can('request.admin')
-                <a class="btn btn-success" href="{{ route('edit_request', ['rq' => $rq]) }}" role="button">Chỉnh sửa</a>
+                <a class="btn btn-success" href="{{ route('edit_priority', $rq->id) }}" role="button">Chỉnh sửa</a>
                 @endcan
             </p>
         </div>
