@@ -7,6 +7,7 @@ use App\Models\RequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Comment;
 
 class RequestController extends Controller
 {
@@ -66,6 +67,7 @@ class RequestController extends Controller
     }
     public function show($id)
     {
+
         $rq = RequestModel::findOrFail($id);
         $user = User::where('id', $rq->user_id)->first();
         return view('requests.show', compact('rq', 'user'));
@@ -116,6 +118,13 @@ class RequestController extends Controller
         $rq->status = "Open";
         $rq->save();
 
+        $input['request_model_id'] = $id;
+        $input['body'] = "APPROVED";
+        //$input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        Comment::create($input);
+
+
         return redirect('/requests/drafts');
     }
     public function reject($id)
@@ -123,6 +132,11 @@ class RequestController extends Controller
         $rq = RequestModel::find($id);
         $rq->status = "Close";
         $rq->save();
+        $input['request_model_id'] = $id;
+        $input['body'] = "REJECTED";
+        //$input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        Comment::create($input);
         return redirect('/requests/drafts');
     }
     public function editPriority($id){

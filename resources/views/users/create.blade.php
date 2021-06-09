@@ -97,7 +97,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Register') }}
                                     </button>
-                                    <a href="#" class="btn btn-secondary"> Back</a>
+                                    <a href="{{ route('list_users') }}" class="btn btn-secondary"> Back</a>
                                 </div>
                             </div>
                         </div>

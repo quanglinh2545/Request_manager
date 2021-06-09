@@ -27,6 +27,7 @@ class UserController extends Controller
             if ($user->inRole('admin') == 0) $users[] = $user;
         }
         return view('users.list', compact('users'));
+      // return $all_users->toJson();
     }
 
     /**
@@ -104,8 +105,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
-        
+        //$food_id = DB::table('means_foods')->where('mean_id',$stt)->pluck('food_id');
+        // $foods = Food::where('id',$food_id)->get();
         $roles = Role::where('slug','<>',"admin")->get();
         $dpms = Department::all();
         $user = User::findOrFail($id);

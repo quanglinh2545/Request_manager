@@ -44,7 +44,8 @@ Route::post('/edit_user/{id}', 'App\Http\Controllers\UserController@update')
 ->name('update_user')
 ->middleware('auth');
 
-
+Route::post('/store_comment','App\Http\Controllers\CommentController@store')
+->name('store_comment');
 
 
 

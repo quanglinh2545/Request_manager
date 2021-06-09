@@ -58,6 +58,28 @@
                             <p>{{ date('Y-m-d\TH:i', strtotime($rq->due_date)) }}</p>
                         </div>
                     </div>
+                    {{--  --}}
+                     <hr />
+                      <br /> <br> <br /> <br>
+                     <h3>Comments</h3>
+  
+                    @include('requests.commentsDisplay', ['comments' => $rq->comments, 'rq_id' => $rq->id])
+   
+                    <hr />
+                       @can('request.manager')
+                    <h4>Add comment</h4>
+                    <form method="post" action="{{ route('store_comment') }}">
+                        @csrf
+                        <div class="form-group">
+                            <textarea class="form-control" name=body></textarea>
+                            <input type=hidden name=request_model_id value="{{ $rq->id }}" />
+                        </div>
+                        <div class="form-group">
+                            <input type=submit class="btn btn-success" value="Add Comment" />
+                        </div>
+                    </form>
+                    @endcan
+                    {{--  --}}
                 </div>
             </div>
             @can('request.manager')
